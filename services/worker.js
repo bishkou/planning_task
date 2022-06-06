@@ -32,7 +32,16 @@ const addOne = async (req, res, next) => {
 }
 
 const editOne = async (req, res, next) => {
-    res.send('example working')
+    const { name } = req.body;
+    const { id } = req.params;
+
+    const worker = await Worker.findByIdAndDelete(id, {
+        name
+    }).catch((err) => {
+        res.status(400).json({errors: [{ message: err.message}]})
+    });
+
+    res.status(200).send(worker);
 }
 
 const deleteOne = async (req, res, next) => {
