@@ -9,7 +9,9 @@ const Shift = new Schema({
     worker: {
         type: Schema.Types.ObjectId,
         ref: 'Worker'
-    }
+    },
+    is_holiday: {type: Boolean, default: false},
+    is_weekend: {type: Boolean, default: false}
 
     },
     {
