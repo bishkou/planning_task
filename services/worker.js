@@ -35,7 +35,7 @@ const editOne = async (req, res, next) => {
     const { name } = req.body;
     const { id } = req.params;
 
-    const worker = await Worker.findByIdAndDelete(id, {
+    const worker = await Worker.findOneAndUpdate({_id: id}, {
         name
     }).catch((err) => {
         res.status(400).json({errors: [{ message: err.message}]})
