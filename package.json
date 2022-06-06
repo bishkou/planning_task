@@ -7,8 +7,14 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon server.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./test/setup.js"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -19,8 +25,15 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "helmet": "^5.1.0",
+    "jest": "^28.1.0",
     "mongoose": "^6.3.5",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.16"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^3.0.1",
+    "mongodb": "^4.5.0",
+    "mongodb-memory-server": "^7.6.3",
+    "supertest": "^6.2.3"
   }
 }
