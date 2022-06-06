@@ -1,4 +1,5 @@
 const Shift = require('../models/shift')
+const Worker = require('../models/worker')
 
 const getAll = async (req, res, next) => {
     const shifts = await Shift.find({})
@@ -47,7 +48,9 @@ const addOne = async (req, res, next) => {
     const shift = new Shift({
         day_shifts,
         work_date,
-        worker: worker_id
+        worker: worker_id,
+        is_holiday,
+        is_weekend
     });
 
     const savedShift = await shift.save()

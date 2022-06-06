@@ -36,28 +36,52 @@ it('fetches all the shifts for a worker', async () => {
 
 
     const response = await request(app)
-        .get(`/api/shift`)
-
+        .get(`/api/shift/all/${worker._id}`)
         .expect(200);
 
-    expect(response.body.length).toEqual(4);
+    expect(response.body.length).toEqual(3);
 
 
 })
 
-it('fetchs a worker', async () => {
-    const worker = await createWorker();
+it('adds a shift to a worker', async () => {
 
-    await request(app)
-        .post(`/api/worker`)
-        .send({ name: worker.name })
+    const worker = await createWorker();
+    const shift = await createShift([true,false,false], '2021-06-06', worker._id, false, false);
+
+    const newShift = await request(app)
+        .post('/api/shift')
+        .send({
+            worker_id: worker._id,
+            work_date: shift.work_date,
+            day_shifts: shift.day_shifts,
+            is_holiday: shift.is_holiday,
+            is_weekend: shift.is_weekend
+        })
         .expect(201);
+
 
     const response = await request(app)
         .get(`/api/worker/${worker._id}`)
-        .send()
-        .expect(200)
+        .send({})
+        .expect(200);
+    expect(response.body.shifts[0].id).toEqual(newShift.body.id)
 
-    expect(response.body.id).toEqual(worker._id.toHexString());
+});
 
+it('return a 400 for having 2 shifts in a day a shift to a worker', async () => {
+
+    const worker = await createWorker();
+    const shift = await createShift([true,true,false], '2021-06-06', worker._id, false, false);
+
+    await request(app)
+        .post('/api/shift')
+        .send({
+            worker_id: worker._id,
+            work_date: shift.work_date,
+            day_shifts: shift.day_shifts,
+            is_holiday: shift.is_holiday,
+            is_weekend: shift.is_weekend
+        })
+        .expect(400);
 });
