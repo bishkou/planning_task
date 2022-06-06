@@ -6,6 +6,8 @@ const ShiftService = require('../services/shift')
 
 router.get('/:id', ShiftService.getOne);
 
+router.get('/all/:id', ShiftService.getAllByWorker);
+
 router.get('', ShiftService.getAll);
 
 router.post('', ShiftService.addOne);

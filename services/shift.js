@@ -8,6 +8,16 @@ const getAll = async (req, res, next) => {
     res.status(200).send(shifts);
 }
 
+const getAllByWorker = async (req, res, next) => {
+    const { id } = req.params;
+
+    const shifts = await Shift.find({worker: id})
+        .catch((err) => {
+            res.status(400).json({errors: [{ message: err.message}]})
+        });
+    res.status(200).send(shifts);
+}
+
 const getOne = async (req, res, next) => {
     const { id } = req.params;
     const shift = await Shift.findById(id)
@@ -122,6 +132,7 @@ const deleteAll = async (req, res, next) => {
 
 module.exports = {
     getAll,
+    getAllByWorker,
     getOne,
     addOne,
     editOne,
