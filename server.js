@@ -40,6 +40,7 @@ const onError = error => {
     }
 };
 
+//Mongodb connection
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -57,6 +58,7 @@ const onListening = () => {
     debug("Listening on " + bind);
 };
 
+//you can specify the port here
 const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 

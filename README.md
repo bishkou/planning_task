@@ -20,7 +20,13 @@ npm start
 **After that run npm start to start the server**
 
 ## Project Setup
-***The server is running on Port 3000, once it's up, it will connect to a MongoDB cluster, the Database URI is provided 
+**You will need to add a .env file in the root of the project and provide your Mongodb Uri to connect to the database**<br>
+```txt
+Example:
+    MONGO_URI=mongodb+srv://example:example@example.0m1iycb.mongodb.net/?retryWrites=true&w=majority
+
+```
+***The server is running on Port 3000, once it's up, it will connect to a MongoDB cluster with the Database URI is provided 
 in .env file***
 
 ## Important
