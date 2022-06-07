@@ -20,6 +20,7 @@ npm start
 **After that run npm start to start the server**
 
 ## Project Setup
+**This project uses Nodejs (express.js) and MongoDB as a database.**<br><br>
 **You will need to add a .env file in the root of the project and provide your Mongodb Uri to connect to the database**<br>
 ```txt
 Example:
