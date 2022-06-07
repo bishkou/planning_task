@@ -16,10 +16,4 @@ router.patch('/:id', ShiftService.editOne);
 
 router.delete('/delete/:id', ShiftService.deleteOne);
 
-router.delete('/delete', ShiftService.deleteAll);
-
-
-
-
-
 module.exports = router;

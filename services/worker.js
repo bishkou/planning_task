@@ -53,20 +53,10 @@ const deleteOne = async (req, res, next) => {
     res.status(200).send(deletedWorker);
 }
 
-const deleteAll = async (req, res, next) => {
-
-    const deletedWorkers = await Worker.deleteMany({})
-        .catch((err) => {
-            res.status(400).json({errors: [{ message: err.message}]})
-        });
-    res.status(200).send(deletedWorkers);
-}
-
 module.exports = {
     getAll,
     getOne,
     addOne,
     editOne,
-    deleteOne,
-    deleteAll
+    deleteOne
 }

@@ -124,21 +124,11 @@ const deleteOne = async (req, res, next) => {
     res.status(200).send(deletedShift);
 }
 
-const deleteAll = async (req, res, next) => {
-
-    const deletedShifts = await Shift.deleteMany({})
-        .catch((err) => {
-            res.status(400).json({errors: [{ message: err.message}]})
-        });
-    res.status(200).send(deletedShifts);
-}
-
 module.exports = {
     getAll,
     getAllByWorker,
     getOne,
     addOne,
     editOne,
-    deleteOne,
-    deleteAll
+    deleteOne
 }

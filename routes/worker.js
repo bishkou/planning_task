@@ -14,10 +14,5 @@ router.patch('/:id', WorkerService.editOne);
 
 router.delete('/delete/:id', WorkerService.deleteOne);
 
-router.delete('/delete', WorkerService.deleteAll);
-
-
-
-
 
 module.exports = router;
