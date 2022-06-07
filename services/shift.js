@@ -1,6 +1,7 @@
 const Shift = require('../models/shift')
 const Worker = require('../models/worker')
 
+//Gets All shift regardless of the worker
 const getAll = async (req, res, next) => {
     const shifts = await Shift.find({})
         .catch((err) => {
@@ -9,6 +10,7 @@ const getAll = async (req, res, next) => {
     res.status(200).send(shifts);
 }
 
+//Gets all the shifts that belong to one Worker
 const getAllByWorker = async (req, res, next) => {
     const { id } = req.params;
 
@@ -31,9 +33,11 @@ const getOne = async (req, res, next) => {
 const addOne = async (req, res, next) => {
     let { day_shifts, work_date, worker_id, is_holiday, is_weekend } = req.body;
 
+    //if its a free day, there shouldnt be any shift
     if (is_holiday || is_weekend)
         day_shifts = [false, false, false];
 
+    //checks if the day_shifts doesnt have more than one true element
     if (day_shifts){
         let counter = 0;
         for (day_shift of day_shifts) {
@@ -61,6 +65,7 @@ const addOne = async (req, res, next) => {
     if (!savedShift)
         res.status(400).json({errors: [{ message: 'Shift wasnt saved successfully' }]})
 
+    //adds shift id to the worker
     await Worker.updateOne({_id: worker_id}, {
         $push: { shifts : savedShift}
     })
@@ -75,10 +80,11 @@ const editOne = async (req, res, next) => {
     let { worker_id, day_shifts, is_weekend, is_holiday } = req.body
     const { id } = req.params;
 
-    if (is_weekend || is_holiday){
+    //if its a free day, there shouldnt be any shift
+    if (is_holiday || is_weekend)
         day_shifts = [false, false, false];
-    }
 
+    //checks if the day_shifts doesnt have more than one true element
     if (day_shifts){
         let counter = 0;
         for (day_shift of day_shifts) {
@@ -110,6 +116,7 @@ const deleteOne = async (req, res, next) => {
             res.status(400).json({errors: [{ message: err.message}]})
         });
 
+    //deletes the shift from the list of shifts related to the worker
     await Worker.findOneAndUpdate({_id: shift.worker}, {
         $pull: {shifts: id}
     }).catch((err) => {
